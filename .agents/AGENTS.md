@@ -6,7 +6,7 @@
 - **Primary Keys**: Use PostgreSQL UUIDs for `users` and all core domain entities.
 
 ## 4-Layer Module Development Pattern
-When planning, building, or documenting feature modules, strictly organize specifications into the following 4 layers:
+When planning, building, or documenting feature modules, strictly organize specifications into the following 4 layers:  
 1. **Data Dictionary**: Field names, data types, nullability, validation rules, input/output dependencies.
 2. **Schema & Models**: Migration SQL/Eloquent definitions, relationships, fillables, and type casting.
 3. **Backend & API**: Controllers, Form Requests, Services, Middleware, and Inertia response payloads.
