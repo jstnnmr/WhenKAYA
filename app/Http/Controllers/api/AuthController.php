@@ -4,7 +4,6 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
-use App\Support\ServiceReturn;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -35,16 +34,20 @@ class AuthController extends Controller
             'role' => ['required', 'string', 'in:admin,user'],
         ]);
 
-        $result = $this->authService->register($data);
+        $result = $this->authService->requestRegistration($data);
 
         return $this->respond($result);
     }
 
-    private function respond(ServiceReturn $result): JsonResponse
+    public function verifyRegistration(Request $request): JsonResponse
     {
-        return response()->json(
-            data: $result->success ? ['message' => $result->message, ...$result->data] : ['message' => $result->message],
-            status: $result->status
-        );
+        $data = $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'code' => ['required', 'string', 'digits:6'],
+        ]);
+
+        $result = $this->authService->verifyRegistration($data);
+
+        return $this->respond($result);
     }
 }
